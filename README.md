@@ -6,6 +6,14 @@ A personal app for studying *Applied Mathematics Methods* (MMA) before the exam 
 
 It runs only on your own computer (`localhost`), with no cost. A Telegram bot sends a daily reminder to study.
 
+**▶ [Live demo](https://lucasalan03.github.io/Organizador-de-estudos/)**: a read-only showcase with sample data (the interface is in Portuguese). You can browse every page, but nothing is saved.
+
+![Tour of the app](docs/img/tour.gif)
+
+| Logging theory pages | Exercise list |
+|---|---|
+| ![Logging pages](docs/img/registrar.gif) | ![Exercise list](docs/img/lista_detalhe.png) |
+
 ## Features
 
 - **Dashboard:** days until the exam, progress in theory and in exercises, daily average, today's goal (met or not), estimate of the remaining work, weekly goal, a pace verdict, items to review and the next suggested item.
@@ -64,6 +72,8 @@ docs/           design spec and implementation plans
 ```
 
 `pace.py` holds all the calculations as pure functions with no I/O. `stats.py` reads the database and builds the data for each page.
+
+`scripts/demo_data.py` creates a database with about 3 weeks of sample study. `scripts/build_demo_site.py` turns the site into static pages for the live demo.
 
 **Stack:** Python, FastAPI, Jinja2, SQLite, httpx, pytest.
 

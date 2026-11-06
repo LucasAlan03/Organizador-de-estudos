@@ -6,7 +6,15 @@ Aplicativo pessoal para estudar *Métodos de Matemática Aplicada* até a prova 
 Registra **quanto tempo cada item levou** (página de teoria, subitem de exercício) e, com isso,
 mostra o progresso, o ritmo, quanto falta e onde está a dificuldade.
 
-Roda só no seu computador (`localhost`), sem custo e sem chamadas de rede.
+Roda só no seu computador (`localhost`), sem custo e sem chamadas de rede (exceto o bot do Telegram).
+
+**▶ [Ver a demonstração](https://lucasalan03.github.io/Organizador-de-estudos/)**: uma vitrine com dados fictícios. Dá para navegar por todas as telas, mas nada é salvo.
+
+![Tour pelo app](docs/img/tour.gif)
+
+| Registrando páginas de teoria | Lista de exercícios |
+|---|---|
+| ![Registrando páginas](docs/img/registrar.gif) | ![Lista de exercícios](docs/img/lista_detalhe.png) |
 
 ## O que tem
 
@@ -61,6 +69,8 @@ docs/           design e plano de implementação
 ```
 
 `pace.py` contém as contas (funções puras, sem I/O); `stats.py` lê o banco e monta os dados das telas.
+
+`scripts/demo_data.py` cria um banco com cerca de 3 semanas de estudo fictício. `scripts/build_demo_site.py` transforma o site em páginas estáticas para a demonstração.
 
 ## Roadmap
 
