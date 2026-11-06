@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS days (
     day TEXT PRIMARY KEY,
     status TEXT NOT NULL DEFAULT 'pendente'
         CHECK (status IN ('pendente', 'vai_estudar', 'estudou', 'pulou')),
-    last_alert_at TEXT
+    last_alert_at TEXT,
+    snooze_until TEXT,
+    alert_count INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS weekly_goals (
     week_start TEXT PRIMARY KEY,
@@ -69,8 +71,18 @@ def connect(path: str | Path) -> sqlite3.Connection:
     return conn
 
 
+def _migrate_days(conn: sqlite3.Connection) -> None:
+    """Bancos criados na Fase 1 não têm as colunas do alerta."""
+    cols = {r["name"] for r in conn.execute("PRAGMA table_info(days)")}
+    if "snooze_until" not in cols:
+        conn.execute("ALTER TABLE days ADD COLUMN snooze_until TEXT")
+    if "alert_count" not in cols:
+        conn.execute("ALTER TABLE days ADD COLUMN alert_count INTEGER NOT NULL DEFAULT 0")
+
+
 def init_schema(conn: sqlite3.Connection) -> None:
     conn.executescript(SCHEMA)
+    _migrate_days(conn)
     for key, value in DEFAULT_SETTINGS.items():
         conn.execute(
             "INSERT OR IGNORE INTO settings(key, value) VALUES (?, ?)", (key, value)
