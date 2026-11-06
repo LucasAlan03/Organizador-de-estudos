@@ -1,0 +1,352 @@
+{
+ "topics": [
+  {
+   "id": "fourier",
+   "title": "Séries de Fourier",
+   "position": 1,
+   "pdf": {
+    "title": "Teoria — Séries de Fourier",
+    "pages": 7
+   },
+   "list": {
+    "title": "Lista — Séries de Fourier",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "i",
+       "ii",
+       "iii"
+      ]
+     },
+     {
+      "n": 2,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 3,
+      "subs": [
+       "a",
+       "c"
+      ]
+     },
+     {
+      "n": 4,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f",
+       "g"
+      ]
+     },
+     {
+      "n": 5,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f",
+       "g",
+       "h"
+      ]
+     },
+     {
+      "n": 6,
+      "subs": []
+     },
+     {
+      "n": 7,
+      "subs": []
+     },
+     {
+      "n": 8,
+      "subs": []
+     }
+    ]
+   }
+  },
+  {
+   "id": "pares-impares",
+   "title": "Funções Pares e Ímpares",
+   "position": 2,
+   "pdf": {
+    "title": "Teoria — Funções Pares e Ímpares",
+    "pages": 7
+   },
+   "list": {
+    "title": "Lista — Funções Pares e Ímpares",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f",
+       "g",
+       "h",
+       "i",
+       "j"
+      ]
+     },
+     {
+      "n": 2,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f"
+      ]
+     },
+     {
+      "n": 3,
+      "subs": [
+       "a",
+       "b",
+       "c"
+      ]
+     },
+     {
+      "n": 4,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 5,
+      "subs": [
+       "a",
+       "b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "conducao-calor",
+   "title": "Condução do Calor",
+   "position": 3,
+   "pdf": {
+    "title": "Teoria — Condução do Calor",
+    "pages": 7
+   },
+   "list": {
+    "title": "Lista — Condução do Calor",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f"
+      ]
+     },
+     {
+      "n": 2,
+      "subs": []
+     },
+     {
+      "n": 3,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d"
+      ]
+     },
+     {
+      "n": 4,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 5,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f"
+      ]
+     },
+     {
+      "n": 6,
+      "subs": []
+     },
+     {
+      "n": 7,
+      "subs": [
+       "a",
+       "b"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "equacao-calor",
+   "title": "Equação do Calor",
+   "position": 4,
+   "pdf": {
+    "title": "Teoria — Equação do Calor",
+    "pages": 6
+   },
+   "list": {
+    "title": "Lista — Equação do Calor",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 2,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 3,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 4,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 5,
+      "subs": []
+     },
+     {
+      "n": 6,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "c2"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "onda",
+   "title": "Equação da Onda",
+   "position": 5,
+   "pdf": {
+    "title": "Teoria — Equação da Onda",
+    "pages": 7
+   },
+   "list": {
+    "title": "Lista — Equação da Onda",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 2,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 3,
+      "subs": [
+       "a",
+       "b",
+       "c"
+      ]
+     },
+     {
+      "n": 4,
+      "subs": [
+       "a",
+       "b"
+      ]
+     },
+     {
+      "n": 5,
+      "subs": [
+       "a",
+       "b",
+       "c"
+      ]
+     },
+     {
+      "n": 6,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "laplace",
+   "title": "Equação de Laplace",
+   "position": 6,
+   "pdf": {
+    "title": "Teoria — Equação de Laplace",
+    "pages": 7
+   },
+   "list": {
+    "title": "Lista — Equação de Laplace",
+    "exercises": [
+     {
+      "n": 1,
+      "subs": [
+       "a",
+       "b",
+       "c",
+       "d",
+       "e",
+       "f",
+       "g",
+       "h",
+       "i",
+       "j",
+       "k"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}
