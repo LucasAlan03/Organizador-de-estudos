@@ -28,7 +28,7 @@ Um único programa Python rodando no PC do usuário:
 
 | Parte | Papel |
 |---|---|
-| **Site** (FastAPI + Jinja2 + HTMX, sem build de front) | Interface em `http://localhost:8000`: painel, teoria, listas, reforço/histórico, configurações |
+| **Site** (FastAPI + Jinja2, formulários HTML simples, sem framework de JS nem build de front) | Interface em `http://localhost:8000`: painel, teoria, listas, reforço/histórico, configurações |
 | **Bot** (python-telegram-bot, *long polling*) | Envia o alerta diário e trata os botões; só lê/escreve estado do dia |
 | **Agendador** (job queue do próprio bot) | Dispara o alerta às 18h30 e os adiamentos |
 | **Banco** (SQLite, um arquivo) | Catálogo, registros de estudo, dias, configurações |
