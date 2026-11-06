@@ -32,6 +32,15 @@ python -m venv .venv
 
 Abra <http://127.0.0.1:8765>. Os dados ficam em `data/study.db`, com backup diário em `data/backups/` (14 dias).
 
+## Bot do Telegram (alerta diário)
+
+1. Crie um bot no @BotFather e copie `.env.example` para `.env`, preenchendo `TELEGRAM_BOT_TOKEN` (o `.env` não vai para o git).
+2. Rode o site (`iniciar.bat`): com o token, o bot liga junto.
+3. No Telegram, envie `/start` ao bot. O primeiro `/start` registra o seu chat; depois o bot só responde a ele.
+4. Às 18:30 (ou no horário das Configurações) chega o alerta com **Consigo agora**, **Daqui 30 min** e **Hoje não**. A mensagem traz o caminho da pasta do projeto.
+
+Regras: sem alerta se o dia já está `estudou`/`pulou`, nem depois das 22:00. Se o PC estava desligado às 18:30, o alerta sai uma vez ao ligar (até 22:00). Usa `httpx` direto na API do Telegram, sem custo e sem IA. O bot só funciona com o PC ligado e o site aberto.
+
 ## Testes
 
 ```bash
@@ -41,7 +50,7 @@ Abra <http://127.0.0.1:8765>. Os dados ficam em `data/study.db`, com backup diá
 ## Estrutura
 
 ```
-app/            código (db, catalog, logs, pace, stats, web, backup)
+app/            código (db, catalog, logs, pace, stats, web, backup, alerts, bot, telegram_api)
 app/templates/  páginas Jinja2
 app/static/     estilos
 catalog/        catalog.json: assuntos, páginas de teoria, exercícios e subitens
@@ -53,5 +62,4 @@ docs/           design e plano de implementação
 
 ## Roadmap
 
-- **Fase 2:** bot do Telegram com alerta diário (Consigo agora / Daqui 30 min / Hoje não).
 - Hospedagem na nuvem para registrar pelo celular.

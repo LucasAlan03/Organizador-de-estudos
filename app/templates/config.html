@@ -28,10 +28,15 @@
       <input id="snooze_min" name="snooze_min" type="number" min="5" max="180" value="{{ v.snooze_min }}" required>
     </div>
   </div>
-  <p class="muted">O alerta diário vem com o bot do Telegram, na próxima fase. Os valores já ficam guardados.</p>
+  <p class="muted">O bot do Telegram usa o horário e o adiamento acima, e lê de novo a cada ciclo, sem precisar reiniciar.</p>
   <div><button class="btn" type="submit">Salvar configurações</button></div>
 </form>
 
 <h2>Telegram</h2>
-<p class="muted">Telegram: ainda não configurado (Fase 2).</p>
+{% if telegram_connected %}
+<p>Conectado. O alerta diário chega no seu Telegram.</p>
+{% else %}
+<p>Aguardando: abra o bot @MMA_MADEIRA_BOT no Telegram e envie <strong>/start</strong>.</p>
+<p class="muted">Se não aparecer nada, confira se o <code>.env</code> tem o <code>TELEGRAM_BOT_TOKEN</code> e reinicie o site.</p>
+{% endif %}
 {% endblock %}

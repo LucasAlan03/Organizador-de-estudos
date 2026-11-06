@@ -23,7 +23,7 @@ def test_config_page_shows_defaults(client):
     assert 'value="90"' in html
     assert 'value="2026-12-12"' in html
     assert 'value="2026-11-06"' in html  # início = hoje no primeiro uso
-    assert "ainda não configurado" in html
+    assert "Aguardando" in html
 
 
 def test_config_roundtrip(client):
@@ -57,3 +57,26 @@ def test_config_changes_dashboard(client):
     client.post("/teoria/fourier/registrar", data={
         "page_from": "1", "page_to": "1", "minutes": "30", "day": "2026-11-06"})
     assert "dentro da meta" in client.get("/").text
+
+
+def test_config_shows_waiting_without_chat_id(client):
+    html = client.get("/config").text
+    assert "Aguardando" in html
+    assert "/start" in html
+
+
+def test_config_shows_connected_with_chat_id(client):
+    from app.db import set_setting
+
+    client.get("/config")
+    with open_db(client) as c:
+        set_setting(c, "telegram_chat_id", "555")
+    html = client.get("/config").text
+    assert "Conectado" in html
+    assert "Aguardando" not in html
+
+
+def test_config_never_contains_token(client, monkeypatch):
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "999:TOPSECRETTOKEN")
+    html = client.get("/config").text
+    assert "TOPSECRETTOKEN" not in html

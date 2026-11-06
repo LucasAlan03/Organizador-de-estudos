@@ -263,7 +263,13 @@ def create_app(
             k: get_setting(conn, k)
             for k in ("daily_goal_min", "exam_date", "start_date", "alert_time", "snooze_min")
         }
-        return render(request, "config.html", v=values)
+        try:
+            telegram_connected = bool(get_setting(conn, "telegram_chat_id"))
+        except KeyError:
+            telegram_connected = False
+        return render(
+            request, "config.html", v=values, telegram_connected=telegram_connected
+        )
 
     @app.post("/config")
     def config_salvar(
