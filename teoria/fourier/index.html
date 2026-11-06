@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teoria — Séries de Fourier · Organizador MMA</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+<div style="background:#1f6f72;color:#fff;padding:10px 16px;font:14px system-ui,sans-serif;text-align:center">
+  Demonstração com dados fictícios: navegue à vontade, mas nada é salvo.
+  · <a style="color:#fff" href="https://github.com/LucasAlan03/Organizador-de-estudos">Código no GitHub</a>
+</div>
+<script>
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Esta é só uma vitrine: os registros funcionam na versão local do app.');
+});
+</script>
+
+
+<div class="shell">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="../../">Organizador MMA</a>
+    <a href="../../" >Painel</a>
+    <a href="../../teoria/" aria-current="page">Teoria</a>
+    <a href="../../listas/" >Listas</a>
+    <a href="../../historico/" >Histórico e reforço</a>
+    <a href="../../config/" >Configurações</a>
+  </nav>
+  <main>
+    
+    
+    
+<p><a href="../../teoria/">← Teoria</a></p>
+<h1>Teoria — Séries de Fourier</h1>
+
+<div class="meter">
+  <div class="meter-head"><span>Páginas lidas</span><span class="num">7/7</span></div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="7">
+    <span class="fill" style="width: 100%; background-size: 100.0% 100%;"></span>
+  </div>
+</div>
+
+<div class="pagegrid">
+  
+    <div class="pg done">1<small>14 min</small></div>
+  
+    <div class="pg done">2<small>9 min</small></div>
+  
+    <div class="pg done">3<small>11 min</small></div>
+  
+    <div class="pg done">4<small>11 min</small></div>
+  
+    <div class="pg done">5<small>14 min</small></div>
+  
+    <div class="pg done">6<small>14 min</small></div>
+  
+    <div class="pg done">7<small>15 min</small></div>
+  
+</div>
+
+<h2>Registrar leitura</h2>
+<form class="stack" method="post" action="../../teoria/fourier/registrar/">
+  <div class="row">
+    <div class="field"><label for="page_from">Da página</label>
+      <input id="page_from" name="page_from" type="number" min="1" max="7" required></div>
+    <div class="field"><label for="page_to">Até a página</label>
+      <input id="page_to" name="page_to" type="number" min="1" max="7" required></div>
+  </div>
+  <div class="row">
+    <div class="field"><label for="minutes">Minutos (total)</label>
+      <input id="minutes" name="minutes" type="text" inputmode="decimal" placeholder="ex.: 45" required></div>
+    <div class="field"><label for="day">Data</label>
+      <input id="day" name="day" type="date" value="2026-11-06" max="2026-11-06" required></div>
+  </div>
+  <p class="muted">O tempo é dividido igualmente entre as páginas do intervalo. Se ainda faltou ler, volte e registre o restante depois.</p>
+  <div><button class="btn" type="submit">Salvar registro</button></div>
+</form>
+
+  </main>
+</div>
+</body>
+</html>

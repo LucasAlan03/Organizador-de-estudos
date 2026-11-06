@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configurações · Organizador MMA</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div style="background:#1f6f72;color:#fff;padding:10px 16px;font:14px system-ui,sans-serif;text-align:center">
+  Demonstração com dados fictícios: navegue à vontade, mas nada é salvo.
+  · <a style="color:#fff" href="https://github.com/LucasAlan03/Organizador-de-estudos">Código no GitHub</a>
+</div>
+<script>
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Esta é só uma vitrine: os registros funcionam na versão local do app.');
+});
+</script>
+
+
+<div class="shell">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="../">Organizador MMA</a>
+    <a href="../" >Painel</a>
+    <a href="../teoria/" >Teoria</a>
+    <a href="../listas/" >Listas</a>
+    <a href="../historico/" >Histórico e reforço</a>
+    <a href="../config/" aria-current="page">Configurações</a>
+  </nav>
+  <main>
+    
+    
+    
+<h1>Configurações</h1>
+<form class="stack" method="post" action="../config/">
+  <div class="field">
+    <label for="daily_goal_min">Meta diária (minutos)</label>
+    <input id="daily_goal_min" name="daily_goal_min" type="number" min="15" max="600" value="90" required>
+    <span class="muted">Só serve para você ver se o dia ficou dentro ou abaixo. A meta da semana é calculada sozinha.</span>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for="start_date">Início dos estudos</label>
+      <input id="start_date" name="start_date" type="date" value="2026-10-16" required>
+    </div>
+    <div class="field">
+      <label for="exam_date">Data da prova</label>
+      <input id="exam_date" name="exam_date" type="date" value="2026-12-12" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for="alert_time">Horário do alerta</label>
+      <input id="alert_time" name="alert_time" type="time" value="18:30" required>
+    </div>
+    <div class="field">
+      <label for="snooze_min">Adiar alerta (minutos)</label>
+      <input id="snooze_min" name="snooze_min" type="number" min="5" max="180" value="30" required>
+    </div>
+  </div>
+  <p class="muted">O bot do Telegram usa o horário e o adiamento acima, e lê de novo a cada ciclo, sem precisar reiniciar.</p>
+  <div><button class="btn" type="submit">Salvar configurações</button></div>
+</form>
+
+<h2>Telegram</h2>
+
+<p>Aguardando: abra o bot @MMA_MADEIRA_BOT no Telegram e envie <strong>/start</strong>.</p>
+<p class="muted">Se não aparecer nada, confira se o <code>.env</code> tem o <code>TELEGRAM_BOT_TOKEN</code> e reinicie o site.</p>
+
+
+  </main>
+</div>
+</body>
+</html>

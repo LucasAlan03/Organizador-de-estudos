@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Histórico e reforço · Organizador MMA</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div style="background:#1f6f72;color:#fff;padding:10px 16px;font:14px system-ui,sans-serif;text-align:center">
+  Demonstração com dados fictícios: navegue à vontade, mas nada é salvo.
+  · <a style="color:#fff" href="https://github.com/LucasAlan03/Organizador-de-estudos">Código no GitHub</a>
+</div>
+<script>
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Esta é só uma vitrine: os registros funcionam na versão local do app.');
+});
+</script>
+
+
+<div class="shell">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="../">Organizador MMA</a>
+    <a href="../" >Painel</a>
+    <a href="../teoria/" >Teoria</a>
+    <a href="../listas/" >Listas</a>
+    <a href="../historico/" aria-current="page">Histórico e reforço</a>
+    <a href="../config/" >Configurações</a>
+  </nav>
+  <main>
+    
+    
+    
+<h1>Histórico e reforço</h1>
+
+<section aria-labelledby="reforco">
+  <h2 id="reforco">Reforço</h2>
+  <p class="muted">Itens e assuntos em que você levou mais de 1,5× a sua média. Vale revisar esses primeiro.</p>
+  
+    <ul class="plain">
+      
+        <li>Condução do Calor — exercícios: média 1,6× a sua média geral</li>
+      
+      
+        <li>Exercício 1 (c) · Condução do Calor: 46 min (2,0× a média)</li>
+      
+        <li>Exercício 2 · Condução do Calor: 42 min (1,8× a média)</li>
+      
+        <li>Exercício 1 (d) · Condução do Calor: 40 min (1,7× a média)</li>
+      
+        <li>Exercício 1 (e) · Condução do Calor: 39 min (1,7× a média)</li>
+      
+        <li>Página 2 · Condução do Calor: 22 min (1,5× a média)</li>
+      
+    </ul>
+  
+</section>
+
+<section aria-labelledby="dias">
+  <h2 id="dias">Por dia (meta de 90 min)</h2>
+  
+  <div class="table-wrap">
+    <table class="log">
+      <thead><tr><th>Dia</th><th>Estudado</th><th>Meta</th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td>2026-11-06</td>
+          <td class="num">1h47</td>
+          <td><span class="badge ok">dentro da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-11-05</td>
+          <td class="num">3h04</td>
+          <td><span class="badge ok">dentro da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-11-04</td>
+          <td class="num">1h16</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-11-03</td>
+          <td class="num">1h20</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-11-02</td>
+          <td class="num">1h45</td>
+          <td><span class="badge ok">dentro da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-31</td>
+          <td class="num">1h18</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-29</td>
+          <td class="num">1h17</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-26</td>
+          <td class="num">1h22</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-25</td>
+          <td class="num">1h45</td>
+          <td><span class="badge ok">dentro da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-24</td>
+          <td class="num">1h57</td>
+          <td><span class="badge ok">dentro da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-23</td>
+          <td class="num">1h14</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-22</td>
+          <td class="num">1h22</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+        <tr>
+          <td>2026-10-18</td>
+          <td class="num">58 min</td>
+          <td><span class="badge low">abaixo da meta</span></td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+</section>
+
+<section aria-labelledby="registros">
+  <h2 id="registros">Registros</h2>
+  
+  <div class="table-wrap">
+    <table class="log">
+      <thead><tr><th>Item</th><th>Assunto</th><th>Editar</th><th></th></tr></thead>
+      <tbody>
+      
+        <tr>
+          <td>Exercício 1 (a)</td>
+          <td>Equação do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/60/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="24.8" aria-label="Minutos de Exercício 1 (a)">
+              <input type="date" name="day" value="2026-11-06" max="2026-11-06" aria-label="Data de Exercício 1 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/60/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 1</td>
+          <td>Equação do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/59/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="12.2" aria-label="Minutos de Página 1">
+              <input type="date" name="day" value="2026-11-06" max="2026-11-06" aria-label="Data de Página 1">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/59/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/58/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="41.5" aria-label="Minutos de Exercício 2">
+              <input type="date" name="day" value="2026-11-06" max="2026-11-06" aria-label="Data de Exercício 2">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/58/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (f)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/57/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="28.1" aria-label="Minutos de Exercício 1 (f)">
+              <input type="date" name="day" value="2026-11-06" max="2026-11-06" aria-label="Data de Exercício 1 (f)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/57/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (e)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/56/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="38.6" aria-label="Minutos de Exercício 1 (e)">
+              <input type="date" name="day" value="2026-11-05" max="2026-11-06" aria-label="Data de Exercício 1 (e)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/56/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (d)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/55/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="39.6" aria-label="Minutos de Exercício 1 (d)">
+              <input type="date" name="day" value="2026-11-05" max="2026-11-06" aria-label="Data de Exercício 1 (d)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/55/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (c)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/54/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="46.5" aria-label="Minutos de Exercício 1 (c)">
+              <input type="date" name="day" value="2026-11-05" max="2026-11-06" aria-label="Data de Exercício 1 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/54/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (b)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/53/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="30.4" aria-label="Minutos de Exercício 1 (b)">
+              <input type="date" name="day" value="2026-11-05" max="2026-11-06" aria-label="Data de Exercício 1 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/53/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (a)</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/52/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="29.0" aria-label="Minutos de Exercício 1 (a)">
+              <input type="date" name="day" value="2026-11-05" max="2026-11-06" aria-label="Data de Exercício 1 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/52/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 4</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/51/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.5" aria-label="Minutos de Página 4">
+              <input type="date" name="day" value="2026-11-04" max="2026-11-06" aria-label="Data de Página 4">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/51/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 3</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/50/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.5" aria-label="Minutos de Página 3">
+              <input type="date" name="day" value="2026-11-04" max="2026-11-06" aria-label="Data de Página 3">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/50/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 2</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/49/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="21.5" aria-label="Minutos de Página 2">
+              <input type="date" name="day" value="2026-11-04" max="2026-11-06" aria-label="Data de Página 2">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/49/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 1</td>
+          <td>Condução do Calor</td>
+          <td>
+            <form class="inline" method="post" action="../historico/48/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="17.5" aria-label="Minutos de Página 1">
+              <input type="date" name="day" value="2026-11-04" max="2026-11-06" aria-label="Data de Página 1">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/48/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2 (c)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/47/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="14.9" aria-label="Minutos de Exercício 2 (c)">
+              <input type="date" name="day" value="2026-11-03" max="2026-11-06" aria-label="Data de Exercício 2 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/47/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2 (b)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/46/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="16.6" aria-label="Minutos de Exercício 2 (b)">
+              <input type="date" name="day" value="2026-11-03" max="2026-11-06" aria-label="Data de Exercício 2 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/46/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2 (a)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/45/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="14.6" aria-label="Minutos de Exercício 2 (a)">
+              <input type="date" name="day" value="2026-11-03" max="2026-11-06" aria-label="Data de Exercício 2 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/45/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (j)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/44/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="17.4" aria-label="Minutos de Exercício 1 (j)">
+              <input type="date" name="day" value="2026-11-03" max="2026-11-06" aria-label="Data de Exercício 1 (j)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/44/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (i)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/43/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="16.6" aria-label="Minutos de Exercício 1 (i)">
+              <input type="date" name="day" value="2026-11-03" max="2026-11-06" aria-label="Data de Exercício 1 (i)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/43/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (h)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/42/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="14.1" aria-label="Minutos de Exercício 1 (h)">
+              <input type="date" name="day" value="2026-11-02" max="2026-11-06" aria-label="Data de Exercício 1 (h)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/42/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (g)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/41/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="23.0" aria-label="Minutos de Exercício 1 (g)">
+              <input type="date" name="day" value="2026-11-02" max="2026-11-06" aria-label="Data de Exercício 1 (g)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/41/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (f)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/40/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="21.3" aria-label="Minutos de Exercício 1 (f)">
+              <input type="date" name="day" value="2026-11-02" max="2026-11-06" aria-label="Data de Exercício 1 (f)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/40/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (e)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/39/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="25.1" aria-label="Minutos de Exercício 1 (e)">
+              <input type="date" name="day" value="2026-11-02" max="2026-11-06" aria-label="Data de Exercício 1 (e)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/39/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (d)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/38/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="21.9" aria-label="Minutos de Exercício 1 (d)">
+              <input type="date" name="day" value="2026-11-02" max="2026-11-06" aria-label="Data de Exercício 1 (d)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/38/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (c)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/37/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="24.7" aria-label="Minutos de Exercício 1 (c)">
+              <input type="date" name="day" value="2026-10-31" max="2026-11-06" aria-label="Data de Exercício 1 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/37/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (b)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/36/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="21.0" aria-label="Minutos de Exercício 1 (b)">
+              <input type="date" name="day" value="2026-10-31" max="2026-11-06" aria-label="Data de Exercício 1 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/36/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (a)</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/35/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.6" aria-label="Minutos de Exercício 1 (a)">
+              <input type="date" name="day" value="2026-10-31" max="2026-11-06" aria-label="Data de Exercício 1 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/35/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 5</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/34/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="14.2" aria-label="Minutos de Página 5">
+              <input type="date" name="day" value="2026-10-31" max="2026-11-06" aria-label="Data de Página 5">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/34/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 4</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/33/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="11.5" aria-label="Minutos de Página 4">
+              <input type="date" name="day" value="2026-10-29" max="2026-11-06" aria-label="Data de Página 4">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/33/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 3</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/32/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="12.7" aria-label="Minutos de Página 3">
+              <input type="date" name="day" value="2026-10-29" max="2026-11-06" aria-label="Data de Página 3">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/32/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 2</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/31/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="13.2" aria-label="Minutos de Página 2">
+              <input type="date" name="day" value="2026-10-29" max="2026-11-06" aria-label="Data de Página 2">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/31/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 1</td>
+          <td>Funções Pares e Ímpares</td>
+          <td>
+            <form class="inline" method="post" action="../historico/30/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="11.9" aria-label="Minutos de Página 1">
+              <input type="date" name="day" value="2026-10-29" max="2026-11-06" aria-label="Data de Página 1">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/30/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (h)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/29/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="27.7" aria-label="Minutos de Exercício 5 (h)">
+              <input type="date" name="day" value="2026-10-29" max="2026-11-06" aria-label="Data de Exercício 5 (h)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/29/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (g)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/28/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="16.5" aria-label="Minutos de Exercício 5 (g)">
+              <input type="date" name="day" value="2026-10-26" max="2026-11-06" aria-label="Data de Exercício 5 (g)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/28/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (f)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/27/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="16.4" aria-label="Minutos de Exercício 5 (f)">
+              <input type="date" name="day" value="2026-10-26" max="2026-11-06" aria-label="Data de Exercício 5 (f)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/27/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (e)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/26/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="20.0" aria-label="Minutos de Exercício 5 (e)">
+              <input type="date" name="day" value="2026-10-26" max="2026-11-06" aria-label="Data de Exercício 5 (e)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/26/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (d)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/25/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="29.4" aria-label="Minutos de Exercício 5 (d)">
+              <input type="date" name="day" value="2026-10-26" max="2026-11-06" aria-label="Data de Exercício 5 (d)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/25/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (c)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/24/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="17.3" aria-label="Minutos de Exercício 5 (c)">
+              <input type="date" name="day" value="2026-10-25" max="2026-11-06" aria-label="Data de Exercício 5 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/24/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (b)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/23/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="20.1" aria-label="Minutos de Exercício 5 (b)">
+              <input type="date" name="day" value="2026-10-25" max="2026-11-06" aria-label="Data de Exercício 5 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/23/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 5 (a)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/22/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="25.5" aria-label="Minutos de Exercício 5 (a)">
+              <input type="date" name="day" value="2026-10-25" max="2026-11-06" aria-label="Data de Exercício 5 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/22/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (g)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/21/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="27.1" aria-label="Minutos de Exercício 4 (g)">
+              <input type="date" name="day" value="2026-10-25" max="2026-11-06" aria-label="Data de Exercício 4 (g)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/21/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (f)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/20/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="15.1" aria-label="Minutos de Exercício 4 (f)">
+              <input type="date" name="day" value="2026-10-25" max="2026-11-06" aria-label="Data de Exercício 4 (f)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/20/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (e)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/19/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="27.1" aria-label="Minutos de Exercício 4 (e)">
+              <input type="date" name="day" value="2026-10-24" max="2026-11-06" aria-label="Data de Exercício 4 (e)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/19/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (d)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/18/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="23.8" aria-label="Minutos de Exercício 4 (d)">
+              <input type="date" name="day" value="2026-10-24" max="2026-11-06" aria-label="Data de Exercício 4 (d)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/18/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (c)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/17/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.3" aria-label="Minutos de Exercício 4 (c)">
+              <input type="date" name="day" value="2026-10-24" max="2026-11-06" aria-label="Data de Exercício 4 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/17/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (b)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/16/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="23.2" aria-label="Minutos de Exercício 4 (b)">
+              <input type="date" name="day" value="2026-10-24" max="2026-11-06" aria-label="Data de Exercício 4 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/16/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 4 (a)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/15/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="24.7" aria-label="Minutos de Exercício 4 (a)">
+              <input type="date" name="day" value="2026-10-24" max="2026-11-06" aria-label="Data de Exercício 4 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/15/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 3 (c)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/14/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.0" aria-label="Minutos de Exercício 3 (c)">
+              <input type="date" name="day" value="2026-10-23" max="2026-11-06" aria-label="Data de Exercício 3 (c)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/14/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 3 (a)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/13/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="15.4" aria-label="Minutos de Exercício 3 (a)">
+              <input type="date" name="day" value="2026-10-23" max="2026-11-06" aria-label="Data de Exercício 3 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/13/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2 (b)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/12/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="22.6" aria-label="Minutos de Exercício 2 (b)">
+              <input type="date" name="day" value="2026-10-23" max="2026-11-06" aria-label="Data de Exercício 2 (b)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/12/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 2 (a)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/11/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="18.3" aria-label="Minutos de Exercício 2 (a)">
+              <input type="date" name="day" value="2026-10-23" max="2026-11-06" aria-label="Data de Exercício 2 (a)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/11/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (iii)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/10/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="15.4" aria-label="Minutos de Exercício 1 (iii)">
+              <input type="date" name="day" value="2026-10-22" max="2026-11-06" aria-label="Data de Exercício 1 (iii)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/10/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (ii)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/9/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="21.3" aria-label="Minutos de Exercício 1 (ii)">
+              <input type="date" name="day" value="2026-10-22" max="2026-11-06" aria-label="Data de Exercício 1 (ii)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/9/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Exercício 1 (i)</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/8/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="16.3" aria-label="Minutos de Exercício 1 (i)">
+              <input type="date" name="day" value="2026-10-22" max="2026-11-06" aria-label="Data de Exercício 1 (i)">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/8/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 7</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/7/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="15.2" aria-label="Minutos de Página 7">
+              <input type="date" name="day" value="2026-10-22" max="2026-11-06" aria-label="Data de Página 7">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/7/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 6</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/6/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="13.7" aria-label="Minutos de Página 6">
+              <input type="date" name="day" value="2026-10-22" max="2026-11-06" aria-label="Data de Página 6">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/6/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 5</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/5/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="14.2" aria-label="Minutos de Página 5">
+              <input type="date" name="day" value="2026-10-18" max="2026-11-06" aria-label="Data de Página 5">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/5/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 4</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/4/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="10.6" aria-label="Minutos de Página 4">
+              <input type="date" name="day" value="2026-10-18" max="2026-11-06" aria-label="Data de Página 4">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/4/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 3</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/3/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="10.9" aria-label="Minutos de Página 3">
+              <input type="date" name="day" value="2026-10-18" max="2026-11-06" aria-label="Data de Página 3">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/3/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 2</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/2/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="9.2" aria-label="Minutos de Página 2">
+              <input type="date" name="day" value="2026-10-18" max="2026-11-06" aria-label="Data de Página 2">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/2/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+        <tr>
+          <td>Página 1</td>
+          <td>Séries de Fourier</td>
+          <td>
+            <form class="inline" method="post" action="../historico/1/editar/">
+              <input type="text" inputmode="decimal" name="minutes" value="13.5" aria-label="Minutos de Página 1">
+              <input type="date" name="day" value="2026-10-18" max="2026-11-06" aria-label="Data de Página 1">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="../historico/1/apagar/"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </div>
+  
+</section>
+
+  </main>
+</div>
+</body>
+</html>
