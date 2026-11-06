@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Teoria · Organizador MMA{% endblock %}
+{% block content %}
+<h1>Teoria</h1>
+<p class="muted">Um PDF por assunto. Abra um para anotar as páginas que leu e o tempo.</p>
+<ul class="topics">
+  {% for t in topics %}
+  <li>
+    <div class="meter small">
+      <div class="meter-head">
+        <a href="/teoria/{{ t.topic_id }}">Teoria — {{ t.title }}</a>
+        <span class="num">{{ t.done }}/{{ t.total }}</span>
+      </div>
+      {% set p = pct(t.done, t.total) %}
+      <div class="bar" role="progressbar" aria-label="Teoria — {{ t.title }}" aria-valuemin="0" aria-valuemax="{{ t.total }}" aria-valuenow="{{ t.done }}">
+        <span class="fill" style="width: {{ p }}%;{% if p > 0 %} background-size: {{ (10000 / p) | round(1) }}% 100%;{% endif %}"></span>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

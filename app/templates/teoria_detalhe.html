@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.pdf_title }} · Organizador MMA{% endblock %}
+{% block content %}
+<p><a href="/teoria">← Teoria</a></p>
+<h1>{{ topic.pdf_title }}</h1>
+{% set p = pct(done, total) %}
+<div class="meter">
+  <div class="meter-head"><span>Páginas lidas</span><span class="num">{{ done }}/{{ total }}</span></div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{ total }}" aria-valuenow="{{ done }}">
+    <span class="fill" style="width: {{ p }}%;{% if p > 0 %} background-size: {{ (10000 / p) | round(1) }}% 100%;{% endif %}"></span>
+  </div>
+</div>
+
+<div class="pagegrid">
+  {% for pg in pages %}
+    <div class="{{ 'pg done' if pg.done else 'pg' }}">{{ pg.page }}{% if pg.done %}<small>{{ pg.minutes | fmt_min }}</small>{% endif %}</div>
+  {% endfor %}
+</div>
+
+<h2>Registrar leitura</h2>
+<form class="stack" method="post" action="/teoria/{{ topic.id }}/registrar">
+  <div class="row">
+    <div class="field"><label for="page_from">Da página</label>
+      <input id="page_from" name="page_from" type="number" min="1" max="{{ total }}" required></div>
+    <div class="field"><label for="page_to">Até a página</label>
+      <input id="page_to" name="page_to" type="number" min="1" max="{{ total }}" required></div>
+  </div>
+  <div class="row">
+    <div class="field"><label for="minutes">Minutos (total)</label>
+      <input id="minutes" name="minutes" type="text" inputmode="decimal" placeholder="ex.: 45" required></div>
+    <div class="field"><label for="day">Data</label>
+      <input id="day" name="day" type="date" value="{{ today }}" max="{{ today }}" required></div>
+  </div>
+  <p class="muted">O tempo é dividido igualmente entre as páginas do intervalo. Se ainda faltou ler, volte e registre o restante depois.</p>
+  <div><button class="btn" type="submit">Salvar registro</button></div>
+</form>
+{% endblock %}
