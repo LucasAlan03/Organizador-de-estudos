@@ -62,10 +62,11 @@ README.md
 - **Registro (log):** `data, item, minutos`. Cada item tem seu próprio tempo (sem divisão entre itens).
   Registrar o mesmo item de novo **soma tempo** (revisão); o progresso conta itens distintos.
 - **Dia (day):** `data, status` ∈ {pendente, vai_estudar, estudou, pulou}, hora do último alerta.
-- **Configurações:** data de início (dia do primeiro uso), prova (12/12/2026), meta diária (90 min),
-  meta semanal (3 dias × 90 min = 270 min), meta da semana da prova (07–11/12: 5 dias × 120 min),
-  estimativas iniciais (teoria 10 min/página, exercício 15 min/subitem), horário do alerta (18:30),
-  intervalo de adiamento (30 min), chat id do Telegram.
+- **Configurações:** data de início (dia do primeiro uso), prova (12/12/2026), **meta diária** (padrão
+  90 min, definida pelo usuário), horário do alerta (18:30), intervalo de adiamento (30 min), chat id do Telegram.
+  Não há estimativas iniciais: tudo que é estimado vem só dos tempos que o usuário registrou.
+- **Meta da semana (calculada, não configurada):** a cada semana (segunda-feira) o sistema recalcula,
+  a partir dos registros, quantas horas faltam e quantas semanas restam, e fixa essa meta para a semana.
 
 O catálogo é gerado uma única vez a partir dos PDFs fornecidos e versionado em `catalog/catalog.json`.
 Erros de digitação no conteúdo (nomes/enunciados) são aceitos e corrigidos depois; números de
@@ -89,12 +90,18 @@ Layout simples, responsivo, claro/escuro. Detalhes visuais são decididos na imp
 ## 5. Cálculos (módulo `pace.py`)
 
 - **Média diária:** `minutos_totais ÷ dias_desde_o_início` (dia atual incluído, dias sem estudo contam como zero). Atualiza todo dia.
-- **Estimativa por unidade:** minutos por página de teoria e minutos por subitem.
-  Para um assunto com ≥ 3 registros da mesma natureza usa-se a média dele; senão a média global da natureza (≥ 3 registros); senão a estimativa inicial.
-- **Horas restantes:** soma, sobre os itens não feitos, da estimativa de cada um.
+- **Meta diária:** valor fixo do usuário (padrão 90 min). Serve só para mostrar se o dia está dentro
+  (minutos do dia ≥ meta) ou abaixo, no painel ("hoje: X / 90 min") e no histórico. Não entra nas projeções.
+- **Estimativa por unidade:** minutos por página de teoria e minutos por subitem, **somente dos registros do usuário**.
+  Para um assunto com ≥ 3 registros da mesma natureza usa-se a média dele; senão a média global da natureza (≥ 3 registros);
+  senão **não há estimativa** daquela natureza ainda.
+- **Horas restantes:** soma, sobre os itens não feitos, da estimativa de cada um. Se faltar estimativa de alguma
+  natureza, o painel mostra "dados insuficientes" para a parte correspondente (esperado nos primeiros dias).
 - **Dias restantes:** de hoje até 11/12 (inclusive).
 - **Necessário por dia:** `horas_restantes ÷ dias_restantes`.
-- **Veredito:** "dados insuficientes" se houver menos de 3 registros; senão compara necessário × média:
+- **Meta da semana:** recalculada toda segunda-feira (e fixada para a semana) como `horas_restantes ÷ semanas_restantes`;
+  o painel mostra o quanto da meta da semana já foi feito.
+- **Veredito:** "dados insuficientes" enquanto não houver estimativa; senão compara necessário × média:
   necessário ≤ 0,9× média → "dá para folgar"; ≤ 1,1× → "mantenha ~X min/dia"; acima → "aumente para ~Y min/dia (ou Z dias/semana)".
 - **Reforço:** um item cujo tempo total passa de 1,5× a média da sua natureza (com ≥ 3 registros da natureza), e assuntos cuja média por unidade passa de 1,5× a global. Ordenado pelo excesso.
 - **Próximo item sugerido:** o primeiro assunto (na ordem) com algo pendente: teoria primeiro, depois exercícios; os itens de reforço aparecem à parte.
@@ -117,7 +124,7 @@ Layout simples, responsivo, claro/escuro. Detalhes visuais são decididos na imp
 - Minutos inválidos (≤ 0 ou absurdos, > 600): rejeitados com mensagem.
 - Página fora do intervalo do PDF: rejeitada.
 - Mesmo item registrado de novo: aceito como revisão (soma tempo), com aviso visível.
-- Poucos dados: veredito "dados insuficientes", estimativas iniciais em uso.
+- Poucos dados: veredito e horas restantes mostram "dados insuficientes" até haver registros suficientes (sem estimativas inventadas).
 - Banco corrompido/ausente: criado a partir do schema + catálogo; backup diário do arquivo em `data/backups/`.
 
 ## 8. Testes
@@ -137,4 +144,5 @@ Layout simples, responsivo, claro/escuro. Detalhes visuais são decididos na imp
 - Telegram em vez de Google Agenda (a agenda não permite resposta interativa).
 - Tempo por item informado pelo usuário (não cronômetro, não divisão igual).
 - Média de ritmo acumulada, não janela móvel.
+- Só a meta diária é configurada (para ver se o dia ficou dentro); a meta da semana é recalculada semanalmente a partir dos registros. Sem estimativas iniciais.
 - Localhost no PC por ora; Cloudflare/nuvem é evolução futura.
