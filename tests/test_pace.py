@@ -102,3 +102,53 @@ def test_week_goal():
     assert week_goal(600, 3) == 600
     assert week_goal(None, 21) is None
     assert week_goal(600, 0) is None
+
+
+# ---- Task 6: reforço e próximo item ----
+from app.pace import next_item, reinforcement  # noqa: E402
+
+
+def test_reinforcement_items():
+    items = [stat("page", "a", m) for m in (10, 10, 10, 60)]
+    flagged, _ = reinforcement(items)
+    assert len(flagged) == 1
+    assert flagged[0].item_id == items[3].item_id
+    assert flagged[0].ratio == pytest.approx(60 / 22.5)
+
+
+def test_reinforcement_needs_min_records():
+    items = [stat("page", "a", 10), stat("page", "a", 100)]
+    assert reinforcement(items) == ([], [])
+
+
+def test_reinforcement_topics():
+    items = [stat("page", "a", 60) for _ in range(3)]
+    items += [stat("page", "b", 10) for _ in range(3)]
+    _, topics = reinforcement(items)
+    assert [(t.topic_id, t.kind) for t in topics] == [("a", "page")]
+    assert topics[0].ratio == pytest.approx(60 / 35)
+
+
+def test_reinforcement_sorted_by_ratio_desc():
+    items = [stat("page", "a", m) for m in (10, 10, 10, 10, 50, 80)]
+    flagged, _ = reinforcement(items)
+    assert [f.ratio for f in flagged] == sorted((f.ratio for f in flagged), reverse=True)
+    assert flagged[0].item_id == items[5].item_id
+
+
+def test_next_item_order():
+    order = ["fourier", "onda"]
+    page_pending = stat("page", "fourier", 0, pos=2)
+    ex1 = stat("exercise", "fourier", 0, pos=1)
+    ex2 = stat("exercise", "fourier", 0, pos=2)
+    onda = stat("page", "onda", 0, pos=1)
+    done_page = stat("page", "fourier", 30, pos=1)
+    # página pendente vem antes de exercícios
+    assert next_item([ex1, page_pending, done_page, onda], order) == page_pending.item_id
+    # só exercícios pendentes: menor position
+    assert next_item([ex2, ex1, done_page, onda], order) == ex1.item_id
+    # fourier todo feito: primeiro pendente de onda
+    all_done = [stat("page", "fourier", 5), stat("exercise", "fourier", 5), onda]
+    assert next_item(all_done, order) == onda.item_id
+    # tudo feito
+    assert next_item([stat("page", "fourier", 5)], order) is None
