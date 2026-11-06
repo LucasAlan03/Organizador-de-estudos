@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Histórico e reforço · Organizador MMA{% endblock %}
+{% block content %}
+<h1>Histórico e reforço</h1>
+
+<section aria-labelledby="reforco">
+  <h2 id="reforco">Reforço</h2>
+  <p class="muted">Itens e assuntos em que você levou mais de 1,5× a sua média. Vale revisar esses primeiro.</p>
+  {% if reinforcement_items or reinforcement_topics %}
+    <ul class="plain">
+      {% for t in reinforcement_topics %}
+        <li>{{ t.topic_title }} — {{ 'teoria' if t.kind == 'page' else 'exercícios' }}: média {{ '%.1f' | format(t.ratio) | replace('.', ',') }}× a sua média geral</li>
+      {% endfor %}
+      {% for r in reinforcement_items %}
+        <li>{{ r.label }} · {{ r.topic_title }}: {{ r.minutes | fmt_min }} ({{ '%.1f' | format(r.ratio) | replace('.', ',') }}× a média)</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nada em reforço por enquanto. Isso aparece depois de alguns registros.</p>
+  {% endif %}
+</section>
+
+<section aria-labelledby="dias">
+  <h2 id="dias">Por dia (meta de {{ daily_goal }} min)</h2>
+  {% if days %}
+  <div class="table-wrap">
+    <table class="log">
+      <thead><tr><th>Dia</th><th>Estudado</th><th>Meta</th></tr></thead>
+      <tbody>
+      {% for day, minutes, ok_goal in days %}
+        <tr>
+          <td>{{ day }}</td>
+          <td class="num">{{ minutes | fmt_min }}</td>
+          <td>{% if ok_goal %}<span class="badge ok">dentro da meta</span>{% else %}<span class="badge low">abaixo da meta</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p>Nenhum dia com estudo registrado ainda.</p>
+  {% endif %}
+</section>
+
+<section aria-labelledby="registros">
+  <h2 id="registros">Registros</h2>
+  {% if logs %}
+  <div class="table-wrap">
+    <table class="log">
+      <thead><tr><th>Item</th><th>Assunto</th><th>Editar</th><th></th></tr></thead>
+      <tbody>
+      {% for l in logs %}
+        <tr>
+          <td>{{ l.label }}</td>
+          <td>{{ l.topic_title }}</td>
+          <td>
+            <form class="inline" method="post" action="/historico/{{ l.log_id }}/editar">
+              <input type="text" inputmode="decimal" name="minutes" value="{{ l.minutes | round(1) }}" aria-label="Minutos de {{ l.label }}">
+              <input type="date" name="day" value="{{ l.day }}" max="{{ today }}" aria-label="Data de {{ l.label }}">
+              <button class="btn ghost small" type="submit">Salvar</button>
+            </form>
+          </td>
+          <td>
+            <form class="inline" method="post" action="/historico/{{ l.log_id }}/apagar"
+                  onsubmit="return confirm('Apagar este registro?');">
+              <button class="btn danger small" type="submit">Apagar</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p>Nenhum registro ainda. Anote a sua primeira leitura em <a href="/teoria">Teoria</a> ou <a href="/listas">Listas</a>.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -183,6 +183,32 @@ def _sum_minutes(conn: sqlite3.Connection, start: date, end: date) -> float:
     return row["m"]
 
 
+def reinforcement_views(
+    conn: sqlite3.Connection, limit: int | None = None
+) -> tuple[list[ReinforcementView], list[ReinforcementTopicView]]:
+    """Itens e assuntos de reforço, já com rótulos para exibir."""
+    items = item_stats(conn)
+    flagged_items, flagged_topics = pace.reinforcement(items)
+    labels = {
+        r["id"]: (r["label"], r["topic_title"])
+        for r in conn.execute(
+            "SELECT i.id, i.label, t.title AS topic_title FROM items i "
+            "JOIN topics t ON t.id = i.topic_id"
+        )
+    }
+    topic_titles = {r["id"]: r["title"] for r in conn.execute("SELECT id, title FROM topics")}
+    minutes = {i.item_id: i.minutes for i in items}
+    item_views = [
+        ReinforcementView(labels[r.item_id][0], labels[r.item_id][1], minutes[r.item_id], r.ratio)
+        for r in flagged_items
+    ]
+    topic_views = [
+        ReinforcementTopicView(topic_titles[t.topic_id], t.kind, t.ratio)
+        for t in flagged_topics
+    ]
+    return item_views[:limit], topic_views[:limit]
+
+
 def dashboard(conn: sqlite3.Connection, today: date) -> Dashboard:
     start = ensure_start_date(conn, today)
     first = conn.execute("SELECT MIN(day) AS d FROM logs").fetchone()["d"]
@@ -206,9 +232,7 @@ def dashboard(conn: sqlite3.Connection, today: date) -> Dashboard:
             "JOIN topics t ON t.id = i.topic_id"
         )
     }
-    topic_titles = {r["id"]: r["title"] for r in conn.execute("SELECT id, title FROM topics")}
-    flagged_items, flagged_topics = pace.reinforcement(items)
-    minutes_by_item = {i.item_id: i.minutes for i in items}
+    reinforcement_items, reinforcement_topics = reinforcement_views(conn, TOP_REINFORCEMENT)
 
     order = [r["id"] for r in conn.execute("SELECT id FROM topics ORDER BY position")]
     nxt = pace.next_item(items, order)
@@ -230,15 +254,8 @@ def dashboard(conn: sqlite3.Connection, today: date) -> Dashboard:
         remaining_minutes=remaining,
         week_goal=ensure_weekly_goal(conn, today),
         week_minutes=_sum_minutes(conn, _monday(today), today),
-        reinforcement_items=[
-            ReinforcementView(labels[r.item_id][0], labels[r.item_id][1],
-                              minutes_by_item[r.item_id], r.ratio)
-            for r in flagged_items[:TOP_REINFORCEMENT]
-        ],
-        reinforcement_topics=[
-            ReinforcementTopicView(topic_titles[t.topic_id], t.kind, t.ratio)
-            for t in flagged_topics[:TOP_REINFORCEMENT]
-        ],
+        reinforcement_items=reinforcement_items,
+        reinforcement_topics=reinforcement_topics,
         next_item_label=labels[nxt][0] if nxt is not None else None,
         next_item_topic=labels[nxt][1] if nxt is not None else None,
     )

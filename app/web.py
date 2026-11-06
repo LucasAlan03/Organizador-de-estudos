@@ -15,7 +15,10 @@ from fastapi.templating import Jinja2Templates
 from app import stats
 from app.catalog import DEFAULT_CATALOG, load_catalog
 from app.db import connect, init_schema
-from app.logs import LogError, add_many_item_logs, add_page_range_log, parse_minutes
+from app.db import get_setting
+from app.logs import (
+    LogError, add_many_item_logs, add_page_range_log, delete_log, parse_minutes, update_log,
+)
 
 BASE = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE / "templates"))
@@ -185,5 +188,38 @@ def create_app(
         if any(r.is_review for r in results):
             msg += " Alguns já tinham registro: contado como revisão."
         return redirect(back, ok=msg)
+
+    def log_or_404(conn, log_id: int) -> None:
+        if conn.execute("SELECT 1 FROM logs WHERE id = ?", (log_id,)).fetchone() is None:
+            raise HTTPException(status_code=404, detail="Registro não encontrado")
+
+    @app.get("/historico", response_class=HTMLResponse)
+    def historico(request: Request, conn=Depends(get_conn)):
+        goal = int(get_setting(conn, "daily_goal_min"))
+        items, topics = stats.reinforcement_views(conn)
+        return render(
+            request, "historico.html",
+            reinforcement_items=items, reinforcement_topics=topics,
+            days=[(d, m, m >= goal) for d, m in stats.day_totals(conn)],
+            logs=stats.recent_logs(conn), daily_goal=goal,
+            today=app.state.today().isoformat(),
+        )
+
+    @app.post("/historico/{log_id}/editar")
+    def historico_editar(
+        log_id: int, minutes: str = Form(""), day: str = Form(""), conn=Depends(get_conn)
+    ):
+        log_or_404(conn, log_id)
+        try:
+            update_log(conn, log_id, parse_minutes(minutes), parse_day(day), app.state.today())
+        except LogError as exc:
+            return redirect("/historico", erro=str(exc))
+        return redirect("/historico", ok="Registro atualizado.")
+
+    @app.post("/historico/{log_id}/apagar")
+    def historico_apagar(log_id: int, conn=Depends(get_conn)):
+        log_or_404(conn, log_id)
+        delete_log(conn, log_id)
+        return redirect("/historico", ok="Registro apagado.")
 
     return app
