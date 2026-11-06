@@ -95,3 +95,26 @@ def test_update_log_validates(catconn):
         update_log(catconn, res.log_id, 0, TODAY, TODAY)
     with pytest.raises(LogError):
         update_log(catconn, 424242, 10, TODAY, TODAY)
+
+
+def test_add_many_item_logs_is_atomic(catconn):
+    from app.logs import add_many_item_logs
+
+    good = item_id(catconn, "fourier:e6")
+    with pytest.raises(LogError):
+        add_many_item_logs(catconn, [(good, 10), (999999, 10)], TODAY, TODAY)
+    assert n_logs(catconn) == 0
+    results = add_many_item_logs(
+        catconn, [(good, 10), (item_id(catconn, "fourier:e7"), 20)], TODAY, TODAY
+    )
+    assert len(results) == 2 and n_logs(catconn) == 2
+    assert day_status(catconn, "2026-11-06") == "estudou"
+
+
+def test_add_many_rejects_empty_and_bad_minutes(catconn):
+    from app.logs import add_many_item_logs
+
+    with pytest.raises(LogError):
+        add_many_item_logs(catconn, [], TODAY, TODAY)
+    with pytest.raises(LogError):
+        add_many_item_logs(catconn, [(item_id(catconn, "fourier:e6"), 0)], TODAY, TODAY)

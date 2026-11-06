@@ -15,7 +15,7 @@ from fastapi.templating import Jinja2Templates
 from app import stats
 from app.catalog import DEFAULT_CATALOG, load_catalog
 from app.db import connect, init_schema
-from app.logs import LogError, add_page_range_log, parse_minutes
+from app.logs import LogError, add_many_item_logs, add_page_range_log, parse_minutes
 
 BASE = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE / "templates"))
@@ -136,6 +136,54 @@ def create_app(
         msg = f"Registrado: {len(results)} página(s), {fmt_min(total / len(results))} cada."
         if any(r.is_review for r in results):
             msg += " Algumas páginas já tinham registro: contado como revisão."
+        return redirect(back, ok=msg)
+
+    @app.get("/listas", response_class=HTMLResponse)
+    def listas(request: Request, conn=Depends(get_conn)):
+        return render(request, "listas.html", topics=stats.topic_progress(conn, "exercise"))
+
+    @app.get("/listas/{topic_id}", response_class=HTMLResponse)
+    def listas_detalhe(topic_id: str, request: Request, conn=Depends(get_conn)):
+        topic = topic_or_404(conn, topic_id)
+        rows = stats.item_rows(conn, topic_id, "exercise")
+        exercises: dict[int, list] = {}
+        for r in rows:
+            exercises.setdefault(r.exercise, []).append(r)
+        return render(
+            request, "listas_detalhe.html", topic=topic, exercises=exercises,
+            done=sum(1 for r in rows if r.done), total=len(rows),
+            today=app.state.today().isoformat(),
+        )
+
+    @app.post("/listas/{topic_id}/registrar")
+    async def listas_registrar(topic_id: str, request: Request, conn=Depends(get_conn)):
+        topic_or_404(conn, topic_id)
+        back = f"/listas/{topic_id}"
+        form = await request.form()
+        try:
+            day = parse_day(str(form.get("day", "")))
+            entries: list[tuple[int, float]] = []
+            for key, value in form.multi_items():
+                if not key.startswith("item_") or value != "on":
+                    continue
+                item_id = parse_int(key[len("item_"):], "o item")
+                row = conn.execute(
+                    "SELECT label FROM items WHERE id = ? AND topic_id = ? AND kind = 'exercise'",
+                    (item_id, topic_id),
+                ).fetchone()
+                if row is None:
+                    raise LogError("Um dos itens marcados não pertence a esta lista.")
+                try:
+                    minutes = parse_minutes(str(form.get(f"min_{item_id}", "")))
+                except LogError as exc:
+                    raise LogError(f"{row['label']}: {exc}") from None
+                entries.append((item_id, minutes))
+            results = add_many_item_logs(conn, entries, day, app.state.today())
+        except LogError as exc:
+            return redirect(back, erro=str(exc))
+        msg = f"Registrado: {len(results)} item(ns)."
+        if any(r.is_review for r in results):
+            msg += " Alguns já tinham registro: contado como revisão."
         return redirect(back, ok=msg)
 
     return app

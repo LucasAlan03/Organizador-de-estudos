@@ -138,3 +138,24 @@ def delete_log(conn: sqlite3.Connection, log_id: int) -> None:
     conn.execute("DELETE FROM logs WHERE id = ?", (log_id,))
     recompute_day_status(conn, date.fromisoformat(row["day"]))
     conn.commit()
+
+
+def add_many_item_logs(
+    conn: sqlite3.Connection, entries: list[tuple[int, float]], day: date, today: date
+) -> list[AddResult]:
+    """Registra vários itens de uma vez (tudo-ou-nada). `entries` = [(item_id, minutos)]."""
+    if not entries:
+        raise LogError("Marque ao menos um item.")
+    _check_day(day, today)
+    for _, minutes in entries:
+        _check_minutes(minutes)
+    results: list[AddResult] = []
+    try:
+        for item_id, minutes in entries:
+            results.append(_insert(conn, item_id, minutes, day))
+        recompute_day_status(conn, day)
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    return results

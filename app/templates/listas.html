@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Listas · Organizador MMA{% endblock %}
+{% block content %}
+<h1>Listas de exercícios</h1>
+<p class="muted">Uma lista por assunto. Abra uma para marcar os exercícios e subitens que você fez e o tempo de cada um.</p>
+<ul class="topics">
+  {% for t in topics %}
+  <li>
+    <div class="meter small">
+      <div class="meter-head">
+        <a href="/listas/{{ t.topic_id }}">Lista — {{ t.title }}</a>
+        <span class="num">{{ t.done }}/{{ t.total }}</span>
+      </div>
+      {% set p = pct(t.done, t.total) %}
+      <div class="bar" role="progressbar" aria-label="Lista — {{ t.title }}" aria-valuemin="0" aria-valuemax="{{ t.total }}" aria-valuenow="{{ t.done }}">
+        <span class="fill" style="width: {{ p }}%;{% if p > 0 %} background-size: {{ (10000 / p) | round(1) }}% 100%;{% endif %}"></span>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

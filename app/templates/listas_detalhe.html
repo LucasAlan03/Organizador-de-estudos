@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.list_title }} · Organizador MMA{% endblock %}
+{% block content %}
+<p><a href="/listas">← Listas</a></p>
+<h1>{{ topic.list_title }}</h1>
+{% set p = pct(done, total) %}
+<div class="meter">
+  <div class="meter-head"><span>Subitens feitos</span><span class="num">{{ done }}/{{ total }}</span></div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{ total }}" aria-valuenow="{{ done }}">
+    <span class="fill" style="width: {{ p }}%;{% if p > 0 %} background-size: {{ (10000 / p) | round(1) }}% 100%;{% endif %}"></span>
+  </div>
+</div>
+
+<form method="post" action="/listas/{{ topic.id }}/registrar">
+  <h2>Registrar</h2>
+  <div class="field" style="max-width: 12rem; margin-bottom: 1rem;">
+    <label for="day">Data</label>
+    <input id="day" name="day" type="date" value="{{ today }}" max="{{ today }}" required>
+  </div>
+  <p class="muted">Marque o que você fez e informe os minutos de cada item. Só os marcados são salvos.</p>
+
+  {% for number, items in exercises.items() %}
+  {% set ex_done = items | selectattr('done') | list | length %}
+  <details class="exercise" {% if ex_done < items | length and loop.first %}open{% endif %}>
+    <summary>Exercício {{ number }} <span class="muted">({{ ex_done }}/{{ items | length }})</span></summary>
+    <div class="subitems">
+      {% for it in items %}
+      <div class="subitem">
+        <label for="item_{{ it.item_id }}">
+          <input id="item_{{ it.item_id }}" type="checkbox" name="item_{{ it.item_id }}">
+          <span>{% if it.sub %}({{ it.sub }}){% else %}Exercício inteiro{% endif %}
+            {% if it.done %}<span class="done-tag">feito · {{ it.minutes | fmt_min }}</span>{% endif %}</span>
+        </label>
+        <input type="text" inputmode="decimal" name="min_{{ it.item_id }}" placeholder="min" aria-label="Minutos em {{ it.label }}">
+      </div>
+      {% endfor %}
+    </div>
+  </details>
+  {% endfor %}
+
+  <p style="margin-top: 1.25rem;"><button class="btn" type="submit">Salvar registros</button></p>
+</form>
+{% endblock %}
