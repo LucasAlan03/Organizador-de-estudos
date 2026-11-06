@@ -1,6 +1,7 @@
 """Site do organizador (FastAPI + Jinja2). Todas as rotas ficam aqui."""
 from __future__ import annotations
 
+import re
 from contextlib import closing
 from datetime import date
 from pathlib import Path
@@ -15,7 +16,7 @@ from fastapi.templating import Jinja2Templates
 from app import stats
 from app.catalog import DEFAULT_CATALOG, load_catalog
 from app.db import connect, init_schema
-from app.db import get_setting
+from app.db import ensure_start_date, get_setting, set_setting
 from app.logs import (
     LogError, add_many_item_logs, add_page_range_log, delete_log, parse_minutes, update_log,
 )
@@ -69,6 +70,39 @@ def parse_int(raw: str, label: str) -> int:
         return int((raw or "").strip())
     except ValueError:
         raise LogError(f"Informe {label} como número inteiro.") from None
+
+
+def int_in_range(raw: str, low: int, high: int, label: str) -> int:
+    try:
+        value = int((raw or "").strip())
+    except ValueError:
+        raise LogError(f"{label}: informe um número inteiro.") from None
+    if not low <= value <= high:
+        raise LogError(f"{label}: use um valor de {low} a {high}.")
+    return value
+
+
+def validate_config(form: dict[str, str]) -> dict[str, str]:
+    """Valida todos os campos de uma vez; devolve os valores prontos para gravar."""
+    goal = int_in_range(form.get("daily_goal_min", ""), 15, 600, "Meta diária (min)")
+    snooze = int_in_range(form.get("snooze_min", ""), 5, 180, "Adiamento (min)")
+    try:
+        exam = date.fromisoformat(form.get("exam_date", "").strip())
+    except ValueError:
+        raise LogError("Data da prova inválida. Use AAAA-MM-DD.") from None
+    try:
+        start = date.fromisoformat(form.get("start_date", "").strip())
+    except ValueError:
+        raise LogError("Data de início inválida. Use AAAA-MM-DD.") from None
+    if start > exam:
+        raise LogError("A data de início não pode ser depois da prova.")
+    alert = form.get("alert_time", "").strip()
+    if not re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", alert):
+        raise LogError("Horário do alerta inválido. Use HH:MM (ex.: 18:30).")
+    return {
+        "daily_goal_min": str(goal), "snooze_min": str(snooze),
+        "exam_date": exam.isoformat(), "start_date": start.isoformat(), "alert_time": alert,
+    }
 
 
 def topic_or_404(conn, topic_id: str):
@@ -221,5 +255,31 @@ def create_app(
         log_or_404(conn, log_id)
         delete_log(conn, log_id)
         return redirect("/historico", ok="Registro apagado.")
+
+    @app.get("/config", response_class=HTMLResponse)
+    def config(request: Request, conn=Depends(get_conn)):
+        ensure_start_date(conn, app.state.today())
+        values = {
+            k: get_setting(conn, k)
+            for k in ("daily_goal_min", "exam_date", "start_date", "alert_time", "snooze_min")
+        }
+        return render(request, "config.html", v=values)
+
+    @app.post("/config")
+    def config_salvar(
+        daily_goal_min: str = Form(""), exam_date: str = Form(""),
+        start_date: str = Form(""), alert_time: str = Form(""),
+        snooze_min: str = Form(""), conn=Depends(get_conn),
+    ):
+        try:
+            values = validate_config({
+                "daily_goal_min": daily_goal_min, "exam_date": exam_date,
+                "start_date": start_date, "alert_time": alert_time, "snooze_min": snooze_min,
+            })
+        except LogError as exc:
+            return redirect("/config", erro=str(exc))
+        for key, value in values.items():
+            set_setting(conn, key, value)
+        return redirect("/config", ok="Configurações salvas.")
 
     return app

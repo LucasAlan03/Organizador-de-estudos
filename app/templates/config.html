@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Configurações · Organizador MMA{% endblock %}
+{% block content %}
+<h1>Configurações</h1>
+<form class="stack" method="post" action="/config">
+  <div class="field">
+    <label for="daily_goal_min">Meta diária (minutos)</label>
+    <input id="daily_goal_min" name="daily_goal_min" type="number" min="15" max="600" value="{{ v.daily_goal_min }}" required>
+    <span class="muted">Só serve para você ver se o dia ficou dentro ou abaixo. A meta da semana é calculada sozinha.</span>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for="start_date">Início dos estudos</label>
+      <input id="start_date" name="start_date" type="date" value="{{ v.start_date }}" required>
+    </div>
+    <div class="field">
+      <label for="exam_date">Data da prova</label>
+      <input id="exam_date" name="exam_date" type="date" value="{{ v.exam_date }}" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label for="alert_time">Horário do alerta</label>
+      <input id="alert_time" name="alert_time" type="time" value="{{ v.alert_time }}" required>
+    </div>
+    <div class="field">
+      <label for="snooze_min">Adiar alerta (minutos)</label>
+      <input id="snooze_min" name="snooze_min" type="number" min="5" max="180" value="{{ v.snooze_min }}" required>
+    </div>
+  </div>
+  <p class="muted">O alerta diário vem com o bot do Telegram, na próxima fase. Os valores já ficam guardados.</p>
+  <div><button class="btn" type="submit">Salvar configurações</button></div>
+</form>
+
+<h2>Telegram</h2>
+<p class="muted">Telegram: ainda não configurado (Fase 2).</p>
+{% endblock %}
