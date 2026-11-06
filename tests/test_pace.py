@@ -1,0 +1,66 @@
+from datetime import date
+from itertools import count
+
+import pytest
+
+from app.pace import (
+    ItemStat, avg_minutes_per_day, days_left, remaining_minutes, unit_estimates,
+)
+
+_ids = count(1)
+
+
+def stat(kind, topic, minutes, pos=1):
+    return ItemStat(
+        item_id=next(_ids), kind=kind, topic_id=topic, position=pos,
+        minutes=minutes, done=minutes > 0,
+    )
+
+
+def test_avg_minutes_per_day():
+    assert avg_minutes_per_day(540, date(2026, 11, 6), date(2026, 11, 8)) == 180
+    assert avg_minutes_per_day(540, date(2026, 11, 6), date(2026, 11, 6)) == 540
+
+
+def test_estimate_uses_topic_when_enough():
+    items = [stat("page", "fourier", m) for m in (10, 20, 30)]
+    assert unit_estimates(items).for_item("page", "fourier") == 20
+
+
+def test_estimate_falls_back_to_global():
+    items = [stat("page", "fourier", m) for m in (10, 20, 30)]
+    items += [stat("page", "onda", m) for m in (40, 60)]
+    assert unit_estimates(items).for_item("page", "onda") == 32
+
+
+def test_estimate_none_when_not_enough_data():
+    items = [stat("page", "fourier", 10), stat("page", "fourier", 20)]
+    assert unit_estimates(items).for_item("page", "fourier") is None
+
+
+def test_estimate_ignores_pending_items():
+    items = [stat("page", "fourier", m) for m in (10, 20, 30)]
+    items += [stat("page", "fourier", 0) for _ in range(5)]
+    assert unit_estimates(items).for_item("page", "fourier") == 20
+
+
+def test_remaining_minutes():
+    done = [stat("page", "x", 20)] * 3 + [stat("exercise", "x", 15)] * 3
+    est = unit_estimates(done)
+    pending = [stat("page", "x", 0), stat("page", "x", 0), stat("exercise", "x", 0)]
+    assert remaining_minutes(pending, est) == 55
+    assert remaining_minutes([], est) == 0.0
+
+
+def test_remaining_none_without_estimate_for_a_kind():
+    done = [stat("page", "x", 20)] * 3
+    est = unit_estimates(done)
+    pending = [stat("page", "x", 0), stat("exercise", "x", 0)]
+    assert remaining_minutes(pending, est) is None
+
+
+def test_days_left():
+    exam = date(2026, 12, 12)
+    assert days_left(date(2026, 12, 11), exam) == 1
+    assert days_left(date(2026, 12, 12), exam) == 0
+    assert days_left(date(2026, 12, 13), exam) == -1
