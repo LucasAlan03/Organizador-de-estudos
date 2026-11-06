@@ -64,3 +64,41 @@ def test_days_left():
     assert days_left(date(2026, 12, 11), exam) == 1
     assert days_left(date(2026, 12, 12), exam) == 0
     assert days_left(date(2026, 12, 13), exam) == -1
+
+
+# ---- Task 5: veredito e meta da semana ----
+from app.pace import verdict, week_goal  # noqa: E402
+
+
+def test_verdict_insufficient():
+    assert verdict(None, 10, 50).kind == "insufficient"
+
+
+def test_verdict_done():
+    assert verdict(0.0, 10, 50).kind == "done"
+
+
+@pytest.mark.parametrize("days", [0, -2])
+def test_verdict_exam_arrived(days):
+    assert verdict(100.0, days, 50).kind == "exam_arrived"
+
+
+def test_verdict_three_branches():
+    assert verdict(600, 10, 70).kind == "folga"
+    assert verdict(600, 10, 60).kind == "manter"
+    v = verdict(600, 10, 40)
+    assert v.kind == "aumentar"
+    assert v.required_per_day == 60
+    assert "60 min/dia" in v.message
+
+
+def test_verdict_zero_average_does_not_divide_by_zero():
+    v = verdict(600, 10, 0)
+    assert v.kind == "aumentar"
+
+
+def test_week_goal():
+    assert week_goal(600, 21) == 200
+    assert week_goal(600, 3) == 600
+    assert week_goal(None, 21) is None
+    assert week_goal(600, 0) is None

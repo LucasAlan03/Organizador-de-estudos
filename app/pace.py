@@ -67,3 +67,42 @@ def remaining_minutes(items: Sequence[ItemStat], est: Estimates) -> float | None
             return None
         total += unit
     return total
+
+
+# ---- Veredito e meta da semana ----
+FOLGA = 0.9
+MANTER = 1.1
+
+
+@dataclass(frozen=True)
+class Verdict:
+    kind: str  # insufficient | done | exam_arrived | folga | manter | aumentar
+    required_per_day: float | None
+    message: str
+
+
+def verdict(remaining: float | None, days: int, avg_per_day: float) -> Verdict:
+    if remaining is None:
+        return Verdict(
+            "insufficient", None,
+            "Dados insuficientes: registre mais itens para eu estimar o que falta.",
+        )
+    if remaining <= 0:
+        return Verdict("done", 0.0, "Tudo feito. Bom trabalho!")
+    if days <= 0:
+        return Verdict("exam_arrived", None, "A prova chegou (ou já passou).")
+    required = remaining / days
+    n = round(required)
+    if required <= FOLGA * avg_per_day:
+        return Verdict("folga", required, f"Dá para folgar: você precisa de ~{n} min/dia.")
+    if required <= MANTER * avg_per_day:
+        return Verdict("manter", required, f"No caminho: mantenha ~{n} min/dia.")
+    return Verdict(
+        "aumentar", required, f"Aumente para ~{n} min/dia para fechar até 11/12."
+    )
+
+
+def week_goal(remaining: float | None, days: int) -> float | None:
+    if remaining is None or days <= 0:
+        return None
+    return remaining / max(days / 7, 1.0)
