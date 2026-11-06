@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Organizador MMA{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+{% set path = request.url.path %}
+<div class="shell">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="/">Organizador MMA</a>
+    <a href="/" {% if path == '/' %}aria-current="page"{% endif %}>Painel</a>
+    <a href="/teoria" {% if path.startswith('/teoria') %}aria-current="page"{% endif %}>Teoria</a>
+    <a href="/listas" {% if path.startswith('/listas') %}aria-current="page"{% endif %}>Listas</a>
+    <a href="/historico" {% if path.startswith('/historico') %}aria-current="page"{% endif %}>Histórico e reforço</a>
+    <a href="/config" {% if path.startswith('/config') %}aria-current="page"{% endif %}>Configurações</a>
+  </nav>
+  <main>
+    {% if ok %}<p class="flash ok" role="status">{{ ok }}</p>{% endif %}
+    {% if erro %}<p class="flash erro" role="alert">{{ erro }}</p>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

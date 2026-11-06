@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Painel · Organizador MMA{% endblock %}
+{% macro bar(done, total) %}
+  {% set p = pct(done, total) %}
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="{{ total }}" aria-valuenow="{{ done }}">
+    <span class="fill" style="width: {{ p }}%;{% if p > 0 %} background-size: {{ (10000 / p) | round(1) }}% 100%;{% endif %}"></span>
+  </div>
+{% endmacro %}
+{% block content %}
+<header class="lead">
+  <h1>
+    {% if d.days_left > 1 %}Faltam {{ d.days_left }} dias para a prova
+    {% elif d.days_left == 1 %}Falta 1 dia para a prova
+    {% elif d.days_left == 0 %}A prova é hoje
+    {% else %}A prova já passou{% endif %}
+  </h1>
+  <p class="verdict verdict-{{ d.verdict.kind }}">{{ d.verdict.message }}</p>
+</header>
+
+<section aria-labelledby="progresso">
+  <h2 id="progresso">Progresso</h2>
+  <div class="meter">
+    <div class="meter-head"><span>Teoria (páginas)</span><span class="num">{{ d.theory[0] }}/{{ d.theory[1] }}</span></div>
+    {{ bar(d.theory[0], d.theory[1]) }}
+  </div>
+  <div class="meter">
+    <div class="meter-head"><span>Exercícios (subitens)</span><span class="num">{{ d.exercises[0] }}/{{ d.exercises[1] }}</span></div>
+    {{ bar(d.exercises[0], d.exercises[1]) }}
+  </div>
+</section>
+
+<section aria-labelledby="ritmo">
+  <h2 id="ritmo">Ritmo</h2>
+  <dl class="facts">
+    <div>
+      <dt>Hoje</dt>
+      <dd><span class="num">{{ d.today_minutes | fmt_min }}</span> de {{ d.daily_goal }} min
+        {% if d.within_goal %}<span class="badge ok">dentro da meta</span>{% else %}<span class="badge low">abaixo da meta</span>{% endif %}
+      </dd>
+    </div>
+    <div><dt>Total estudado</dt><dd class="num">{{ d.total_minutes | fmt_min }}</dd></div>
+    <div><dt>Média por dia</dt><dd class="num">{{ d.avg_per_day | fmt_min }}</dd></div>
+    <div><dt>Falta estimada</dt><dd class="num">{% if d.remaining_minutes is none %}dados insuficientes{% else %}{{ d.remaining_minutes | fmt_min }}{% endif %}</dd></div>
+    <div>
+      <dt>Meta da semana</dt>
+      <dd>{% if d.week_goal is none %}<span class="muted">aparece quando houver dados</span>
+        {% else %}<span class="num">{{ d.week_minutes | fmt_min }}</span> de {{ d.week_goal | fmt_min }}{% endif %}</dd>
+    </div>
+  </dl>
+</section>
+
+<section aria-labelledby="proximo">
+  <h2 id="proximo">Próximo sugerido</h2>
+  {% if d.next_item_label %}
+    <p class="next"><strong>{{ d.next_item_label }}</strong> · {{ d.next_item_topic }}</p>
+  {% else %}
+    <p>Nada pendente. Tudo registrado.</p>
+  {% endif %}
+</section>
+
+<section aria-labelledby="reforco">
+  <h2 id="reforco">Reforço</h2>
+  {% if d.reinforcement_items or d.reinforcement_topics %}
+    <ul class="plain">
+      {% for t in d.reinforcement_topics %}
+        <li>{{ t.topic_title }} — {{ 'teoria' if t.kind == 'page' else 'exercícios' }}: {{ '%.1f' | format(t.ratio) | replace('.', ',') }}× a sua média</li>
+      {% endfor %}
+      {% for r in d.reinforcement_items %}
+        <li>{{ r.label }} · {{ r.topic_title }}: {{ r.minutes | fmt_min }} ({{ '%.1f' | format(r.ratio) | replace('.', ',') }}× a média)</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Nenhum item acima de 1,5× a sua média, por enquanto.</p>
+  {% endif %}
+</section>
+{% endblock %}
