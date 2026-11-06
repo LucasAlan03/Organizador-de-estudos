@@ -1,4 +1,4 @@
-"""Inicia o site em http://127.0.0.1:8000 (python -m app)."""
+"""Inicia o site em http://127.0.0.1:8765 (python -m app)."""
 from __future__ import annotations
 
 from datetime import date
@@ -16,7 +16,7 @@ BACKUP_DIR = ROOT / "data" / "backups"
 
 def main() -> None:
     backup_db(DB_PATH, BACKUP_DIR, date.today())
-    uvicorn.run(create_app(DB_PATH), host="127.0.0.1", port=8000)
+    uvicorn.run(create_app(DB_PATH), host="127.0.0.1", port=8765)
 
 
 if __name__ == "__main__":

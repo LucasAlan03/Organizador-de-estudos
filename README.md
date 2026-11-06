@@ -30,7 +30,7 @@ python -m venv .venv
 .venv\Scripts\python -m app                      # ou clique em iniciar.bat
 ```
 
-Abra <http://127.0.0.1:8000>. Os dados ficam em `data/study.db`, com backup diário em `data/backups/` (14 dias).
+Abra <http://127.0.0.1:8765>. Os dados ficam em `data/study.db`, com backup diário em `data/backups/` (14 dias).
 
 ## Testes
 
