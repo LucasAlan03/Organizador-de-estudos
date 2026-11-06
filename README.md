@@ -1,65 +1,72 @@
-# Organizador de Estudos MMA
+# Study Organizer (MMA)
 
-Aplicativo pessoal para estudar *Métodos de Matemática Aplicada* até a prova de 12/12/2026.
-Registra **quanto tempo cada item levou** (página de teoria, subitem de exercício) e, com isso,
-mostra o progresso, o ritmo, quanto falta e onde está a dificuldade.
+**English** · [Português](README.pt-BR.md)
 
-Roda só no seu computador (`localhost`), sem custo e sem chamadas de rede.
+A personal app for studying *Applied Mathematics Methods* (MMA) before the exam on Dec 12, 2026. It records **how long each item took**, whether a page of theory or one part of an exercise. From those times it shows progress, study pace, how much work is left and where the hard topics are.
 
-## O que tem
+It runs only on your own computer (`localhost`), with no cost. A Telegram bot sends a daily reminder to study.
 
-- **Painel:** dias até a prova, progresso de teoria e exercícios, média diária, meta do dia
-  (dentro/abaixo), estimativa do que falta, meta da semana, veredito de ritmo, itens de reforço e o próximo item sugerido.
-- **Teoria:** uma barra por PDF; você anota "páginas X a Y e o tempo".
-- **Listas:** uma barra por lista; você marca exercícios/subitens e informa o tempo de cada um.
-- **Histórico e reforço:** itens e assuntos acima de 1,5× a sua média, minutos por dia e edição/exclusão de registros.
-- **Configurações:** meta diária, datas de início e da prova, horário do alerta e adiamento.
+## Features
 
-## Como o ritmo é calculado
+- **Dashboard:** days until the exam, progress in theory and in exercises, daily average, today's goal (met or not), estimate of the remaining work, weekly goal, a pace verdict, items to review and the next suggested item.
+- **Theory:** one progress bar per PDF. You log "pages X to Y" and the time spent.
+- **Exercise lists:** one progress bar per list. You check off exercises or their parts and enter the time for each one.
+- **History and review:** items and topics that took more than 1.5× your average, minutes per day, and editing or deleting entries.
+- **Settings:** daily goal, start and exam dates, reminder time and snooze.
+- **Telegram bot:** a daily reminder with the buttons **Consigo agora** (I can now), **Daqui 30 min** (in 30 min) and **Hoje não** (not today).
 
-- Média diária = minutos totais ÷ dias desde o início (acumulada, atualiza todo dia).
-- Estimativa por unidade usa **só os seus tempos** (média do assunto com ≥ 3 itens feitos; senão a média geral; senão "dados insuficientes").
-- Necessário por dia = horas restantes ÷ dias até 11/12, comparado com a sua média (folga / manter / aumentar).
-- A meta da semana é recalculada toda segunda-feira a partir dos seus registros.
+## How the pace is calculated
 
-## Instalação e uso
+- **Daily average** = total minutes ÷ days since the start. It is cumulative and updates every day.
+- **The estimate for each unit uses only your own times:** the topic average once 3 or more items are done, otherwise the overall average, otherwise "not enough data".
+- **Needed per day** = remaining hours ÷ days until Dec 11. It is compared with your average, and the verdict is *ahead*, *keep going* or *speed up*.
+- **The weekly goal** is recalculated every Monday from your entries.
+
+## Install and run
 
 ```bash
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt   # Windows
-.venv\Scripts\python -m app                      # ou clique em iniciar.bat
+.venv\Scripts\python -m app                      # or double-click iniciar.bat
 ```
 
-Abra <http://127.0.0.1:8765>. Os dados ficam em `data/study.db`, com backup diário em `data/backups/` (14 dias).
+Open <http://127.0.0.1:8765>. Data is stored in `data/study.db`, with a daily backup in `data/backups/` kept for 14 days.
 
-## Bot do Telegram (alerta diário)
+## Telegram bot (daily reminder)
 
-1. Crie um bot no @BotFather e copie `.env.example` para `.env`, preenchendo `TELEGRAM_BOT_TOKEN` (o `.env` não vai para o git).
-2. Rode o site (`iniciar.bat`): com o token, o bot liga junto.
-3. No Telegram, envie `/start` ao bot. O primeiro `/start` registra o seu chat; depois o bot só responde a ele.
-4. Às 18:30 (ou no horário das Configurações) chega o alerta com **Consigo agora**, **Daqui 30 min** e **Hoje não**. A mensagem traz o caminho da pasta do projeto.
+1. Create a bot with @BotFather. Copy `.env.example` to `.env` and fill in `TELEGRAM_BOT_TOKEN`. The `.env` file is never committed.
+2. Start the site (`iniciar.bat`). If the token is set, the bot starts with it.
+3. In Telegram, send `/start` to the bot. The first `/start` registers your chat, and after that the bot answers only that chat.
+4. At 18:30, or at the time set in Settings, the reminder arrives with the three buttons.
 
-Regras: sem alerta se o dia já está `estudou`/`pulou`, nem depois das 22:00. Se o PC estava desligado às 18:30, o alerta sai uma vez ao ligar (até 22:00). Usa `httpx` direto na API do Telegram, sem custo e sem IA. O bot só funciona com o PC ligado e o site aberto.
+Rules:
+- No reminder if the day is already marked *studied* or *skipped*, and none after 22:00.
+- If the PC was off at 18:30, the reminder is sent once when it starts (until 22:00).
+- It uses `httpx` directly against the Telegram Bot API, with no extra library, no cost and no AI.
 
-## Testes
+## Tests
 
 ```bash
 .venv\Scripts\python -m pytest
 ```
 
-## Estrutura
+144 unit and integration tests.
+
+## Project layout
 
 ```
-app/            código (db, catalog, logs, pace, stats, web, backup, alerts, bot, telegram_api)
-app/templates/  páginas Jinja2
-app/static/     estilos
-catalog/        catalog.json: assuntos, páginas de teoria, exercícios e subitens
-tests/          testes unitários e de integração
-docs/           design e plano de implementação
+app/            code (db, catalog, logs, pace, stats, web, backup, alerts, bot, telegram_api)
+app/templates/  Jinja2 pages
+app/static/     styles
+catalog/        catalog.json: topics, theory pages, exercises and their parts
+tests/          unit and integration tests
+docs/           design spec and implementation plans
 ```
 
-`pace.py` contém as contas (funções puras, sem I/O); `stats.py` lê o banco e monta os dados das telas.
+`pace.py` holds all the calculations as pure functions with no I/O. `stats.py` reads the database and builds the data for each page.
+
+**Stack:** Python, FastAPI, Jinja2, SQLite, httpx, pytest.
 
 ## Roadmap
 
-- Hospedagem na nuvem para registrar pelo celular.
+- Cloud hosting, to log study sessions from a phone.
