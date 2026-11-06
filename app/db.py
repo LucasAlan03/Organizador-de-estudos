@@ -74,10 +74,17 @@ def connect(path: str | Path) -> sqlite3.Connection:
 def _migrate_days(conn: sqlite3.Connection) -> None:
     """Bancos criados na Fase 1 não têm as colunas do alerta."""
     cols = {r["name"] for r in conn.execute("PRAGMA table_info(days)")}
-    if "snooze_until" not in cols:
-        conn.execute("ALTER TABLE days ADD COLUMN snooze_until TEXT")
-    if "alert_count" not in cols:
-        conn.execute("ALTER TABLE days ADD COLUMN alert_count INTEGER NOT NULL DEFAULT 0")
+    for name, ddl in (
+        ("snooze_until", "TEXT"),
+        ("alert_count", "INTEGER NOT NULL DEFAULT 0"),
+    ):
+        if name in cols:
+            continue
+        try:
+            conn.execute(f"ALTER TABLE days ADD COLUMN {name} {ddl}")
+        except sqlite3.OperationalError as exc:
+            if "duplicate column" not in str(exc):  # outra conexão migrou primeiro
+                raise
 
 
 def init_schema(conn: sqlite3.Connection) -> None:

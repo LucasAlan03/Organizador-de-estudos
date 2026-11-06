@@ -1,6 +1,7 @@
 """Leitura mínima de arquivo .env (CHAVE=valor), sem dependências."""
 from __future__ import annotations
 
+import codecs
 from pathlib import Path
 
 
@@ -9,7 +10,11 @@ def load_env(path: Path) -> dict[str, str]:
     if not path.exists():
         return {}
     values: dict[str, str] = {}
-    for line in path.read_text(encoding="utf-8").splitlines():
+    raw = path.read_bytes()
+    # PowerShell 5.1 grava UTF-16; editores do Windows costumam gravar UTF-8 com BOM
+    is_utf16 = raw.startswith(codecs.BOM_UTF16_LE) or raw.startswith(codecs.BOM_UTF16_BE)
+    text = raw.decode("utf-16") if is_utf16 else raw.decode("utf-8-sig")
+    for line in text.splitlines():
         line = line.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue

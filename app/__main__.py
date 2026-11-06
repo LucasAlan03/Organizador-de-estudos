@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import threading
+from contextlib import closing
 from datetime import date, datetime
 from pathlib import Path
 
@@ -22,17 +23,27 @@ BACKUP_DIR = ROOT / "data" / "backups"
 
 def start_bot(root: Path, db_path: Path) -> tuple[threading.Thread, threading.Event] | None:
     """Sobe o bot em uma thread. Sem token no .env, devolve None e o site roda sozinho."""
-    token = load_env(root / ".env").get("TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_BOT_TOKEN")
+    try:
+        env = load_env(root / ".env")
+    except (OSError, UnicodeDecodeError):
+        print("Bot desligado: não consegui ler o .env (salve como UTF-8).")
+        return None
+    token = env.get("TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_BOT_TOKEN")
     if not token:
         print("Bot desligado: sem TELEGRAM_BOT_TOKEN no .env")
         return None
+    # o schema é preparado aqui, antes da thread, para não disputar a migração com o site
+    with closing(connect(db_path)) as setup:
+        init_schema(setup)
     stop = threading.Event()
 
     def work() -> None:
-        conn = connect(db_path)
-        init_schema(conn)
-        Bot(conn, TelegramClient(token), datetime.now, str(root)).run(stop)
-        conn.close()
+        try:
+            conn = connect(db_path)
+            Bot(conn, TelegramClient(token), datetime.now, str(root)).run(stop)
+            conn.close()
+        except Exception as exc:
+            print(f"Bot parou ({type(exc).__name__}). Reinicie o site.")
 
     thread = threading.Thread(target=work, name="telegram-bot", daemon=True)
     thread.start()

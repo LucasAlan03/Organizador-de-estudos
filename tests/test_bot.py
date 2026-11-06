@@ -189,3 +189,48 @@ def test_run_backs_off_on_telegram_error_and_recovers(conn, tg):
     bot.run(stop)
     assert waits == [5, 10]
     assert tg.get_updates_calls == 4
+
+
+def stale_press(data, ts, cid="old"):
+    u = press(data, cid=cid)
+    u["callback_query"]["message"]["date"] = ts
+    return u
+
+
+def test_callback_from_other_day_message_does_not_change_today(conn, tg):
+    bot = make(conn, tg, Clock(8, 0))
+    yesterday = datetime(2026, 11, 5, 18, 30).timestamp()
+    for action in ("hoje_nao", "agora", "adiar"):
+        bot.handle_update(stale_press(action, yesterday))
+    row = get_day(conn, DAY)
+    assert row["status"] == "pendente"
+    assert row["snooze_until"] is None
+    assert "outro dia" in tg.edited[0]["text"]
+
+
+def test_callback_from_today_message_with_date_still_works(conn, tg):
+    bot = make(conn, tg, Clock(18, 31))
+    bot.handle_update(stale_press("hoje_nao", datetime(2026, 11, 6, 18, 30).timestamp()))
+    assert get_day(conn, DAY)["status"] == "pulou"
+
+
+def test_run_survives_unexpected_exception(conn, tg):
+    import threading
+
+    stop = threading.Event()
+    waits = []
+    calls = {"n": 0}
+    real = tg.get_updates
+
+    def flaky(offset, timeout=25):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise KeyError("update estranho")
+        if calls["n"] >= 3:
+            stop.set()
+        return real(offset, timeout)
+
+    tg.get_updates = flaky
+    make(conn, tg, Clock(10), sleep=waits.append).run(stop)
+    assert waits == [5]
+    assert calls["n"] == 3

@@ -105,6 +105,11 @@ class Bot:
         if chat != self._chat_id():
             return
         action = cb.get("data", "")
+        sent = cb["message"].get("date")
+        if sent is not None and datetime.fromtimestamp(sent).date() != self.now().date():
+            self.client.answer_callback(cb["id"])
+            self.client.edit_message(chat, cb["message"]["message_id"], "Esse alerta é de outro dia.")
+            return
         snooze = int(get_setting(self.conn, "snooze_min"))
         text = apply_action(self.conn, action, self.now(), snooze)
         if action == "agora" and get_day(self.conn, self.now().date())["status"] == "vai_estudar":
@@ -124,6 +129,8 @@ class Bot:
                     offset = update["update_id"] + 1
                     self.handle_update(update)
                 wait = 0
-            except (TelegramError, sqlite3.Error):  # o site segue de pé; tenta de novo
+            except Exception as exc:  # o site segue de pé; tenta de novo
+                if not isinstance(exc, (TelegramError, sqlite3.Error)):
+                    print(f"Bot: erro inesperado ({type(exc).__name__}); tentando de novo.")
                 wait = BACKOFF_START if wait == 0 else min(wait * 2, BACKOFF_MAX)
                 sleep(wait)
